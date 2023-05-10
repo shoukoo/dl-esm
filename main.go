@@ -62,7 +62,7 @@ func rootCmd() *cobra.Command {
 				code = fetchCode(packageArg)
 			}
 
-			pkgVer := extractOriginalFile(code, packageArg)
+			pkgVer := extractPkgVer(code, packageArg)
 			path := simplifyPath(fmt.Sprintf("/npm/%s/+esm", pkgVer))
 
 			// Rewrite code and save to path
@@ -142,7 +142,7 @@ func fetchCode(packageArg string) string {
 
 }
 
-func extractOriginalFile(content string, pkgName string) string {
+func extractPkgVer(content string, pkgName string) string {
 
 	// if pkgName includes version then return
 	r := regexp.MustCompile(`([^@]+)@(\d+\.\d+\.\d+)`)
