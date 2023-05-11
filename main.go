@@ -34,15 +34,15 @@ dl-easm solid-js@1.7.5
 # download to a specific dir
 dl-easm solid-js@1.7.5 /tmp
 		`,
-		Args: cobra.ExactArgs(1),
+		Args: cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
-			location, err := cmd.Flags().GetString("location")
-			if err != nil {
-				return err
-			}
-
+			location := "."
 			packageArg := args[0]
+
+			if len(args) == 2 {
+				location = args[1]
+			}
 
 			root := filepath.Join(location)
 			if _, err := os.Stat(root); os.IsNotExist(err) {
@@ -77,7 +77,7 @@ dl-easm solid-js@1.7.5 /tmp
 
 			// Rewrite code and save to path
 			rewrittenCode, capturedPaths := rewriteCode(code)
-			err = os.WriteFile(filepath.Join(root, path), []byte(rewrittenCode), 0644)
+			err := os.WriteFile(filepath.Join(root, path), []byte(rewrittenCode), 0644)
 			if err != nil {
 				return err
 			}
@@ -128,8 +128,6 @@ dl-easm solid-js@1.7.5 /tmp
 
 		},
 	}
-
-	cmd.Flags().String("location", ".", "location to save the files")
 
 	return cmd
 }

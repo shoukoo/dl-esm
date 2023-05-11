@@ -62,7 +62,7 @@ export default null;
 		Reply(200).
 		BodyString(solidjsResponse)
 
-	_, _, err = executeCmd(rootCmd(), "solid-js@1.7.5/html", fmt.Sprintf("--location=%s", tmpDir))
+	_, _, err = executeCmd(rootCmd(), "solid-js@1.7.5/html", tmpDir)
 	assert.NoError(t, err)
 	assert.FileExists(t, fmt.Sprintf("%s/solid-js-1-7-5-html.js", tmpDir))
 	assert.FileExists(t, fmt.Sprintf("%s/solid-js-1-7-5-web.js", tmpDir))
@@ -146,7 +146,7 @@ alert('hi')
 		Reply(200).
 		BodyString(d3ArrayResponse)
 
-	_, _, err = executeCmd(rootCmd(), "@observablehq/plot", fmt.Sprintf("--location=%s", tmpDir))
+	_, _, err = executeCmd(rootCmd(), "@observablehq/plot", tmpDir)
 	assert.NoError(t, err)
 	fmt.Printf("%s\n", tmpDir)
 	assert.FileExists(t, fmt.Sprintf("%s/observablehq-plot-0-6-6.js", tmpDir))
