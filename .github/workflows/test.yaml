@@ -1,0 +1,19 @@
+name: Go Test
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+
+      - name: Build and test
+        run: |
+          go test ./...
