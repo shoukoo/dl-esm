@@ -49,7 +49,11 @@ import { onCleanup, createEffect, createSignal, onMount, For, Show } from "solid
 ## Development
 
 To run dl-esm locally run:
+```bash
     go run main.go solid-js@1.7.5
+```
 
 To run the tests:
+```bash
     go test ./... 
+```
