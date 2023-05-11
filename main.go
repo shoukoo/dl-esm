@@ -21,10 +21,20 @@ func main() {
 
 func rootCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "dl-esm",
+		Use:   "dl-esm PAKCAGE DIR[optional]",
 		Short: "Download ESM modules from npm and jsdelivr",
 		Long:  "Download ESM modules from npm and jsdelivr",
-		Args:  cobra.ExactArgs(1),
+		Example: `
+# download latest version of solid js
+dl-easm solid-js
+
+# download a specific version of solid js
+dl-easm solid-js@1.7.5
+
+# download to a specific dir
+dl-easm solid-js@1.7.5 /tmp
+		`,
+		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
 			location, err := cmd.Flags().GetString("location")
