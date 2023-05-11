@@ -168,6 +168,15 @@ func extractPkgVer(content string, pkgName string) string {
 		panic("Could not find original file")
 	}
 
+	// split sub dirs if there is one
+	pkgNameSubDir := strings.SplitN(pkgName, "/", 2)
+	subDir := ""
+
+	if len(pkgNameSubDir) == 2 {
+		subDir = "/" + pkgNameSubDir[1]
+		pkgName = pkgNameSubDir[0]
+	}
+
 	// extract package and version
 	pattern = fmt.Sprintf(`/%s@(\d+\.\d+\.\d+)`, pkgName)
 	r = regexp.MustCompile(pattern)
@@ -177,7 +186,7 @@ func extractPkgVer(content string, pkgName string) string {
 		panic("unable to extract package info")
 	}
 
-	return pkgName + "@" + matches[1]
+	return pkgName + "@" + matches[1] + subDir
 
 }
 

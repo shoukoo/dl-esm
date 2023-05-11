@@ -164,6 +164,42 @@ alert('hi')
 
 }
 
+func TestExtractPkgVer(t *testing.T) {
+	testCases := []struct {
+		name     string
+		content  string
+		pkgName  string
+		expected string
+	}{
+		{
+			name:     "pkgName includes version",
+			content:  "sample content",
+			pkgName:  "solid-js@1.2.3",
+			expected: "solid-js@1.2.3",
+		},
+		{
+			name:     "pkgName includes version",
+			content:  "sample content",
+			pkgName:  "solid-js@1.2.3/html",
+			expected: "solid-js@1.2.3/html",
+		},
+		{
+			name:     "extracts package info from content",
+			content:  "Original file: /npm/solid-js@1.7.5/html",
+			pkgName:  "solid-js/html",
+			expected: "solid-js@1.7.5/html",
+		},
+	}
+
+	for _, tc := range testCases {
+		result := extractPkgVer(tc.content, tc.pkgName)
+		if result != tc.expected {
+			t.Errorf("Expected %q, but got %q", tc.expected, result)
+		}
+
+	}
+}
+
 func executeCmd(root *cobra.Command, args ...string) (c *cobra.Command, output string, err error) {
 	buf := new(bytes.Buffer)
 	root.SetOut(buf)
