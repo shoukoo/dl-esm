@@ -6,7 +6,9 @@ This is the Go version of Simon Willison's [download-esm](https://github.com/sim
 ## Installation
 
 Install this tool using `go`:
+```bash
     go install github.com/shoukoo/dl-esm@latest
+```
 
 ## Usage
 
